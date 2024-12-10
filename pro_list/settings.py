@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'pro_list.wsgi.application'
     }
 }'''
 #New database
-Database_url = od.environ.get('DATABASE_URL')
+Database_url = os.environ.get('DATABASE_URL')
 import dj_database_url
 DATABASES = {
     'default': dj_database_url.parse(Database_url)
