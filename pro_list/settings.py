@@ -159,15 +159,4 @@ SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 
-import os
-from django.core.management import call_command
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
-
-def create_superuser():
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@example.com', 'password')  # Change as needed
-
-if os.environ.get('RUN_MAIN') == 'true':  # Only run in development mode
-    create_superuser()
