@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.management import call_command
+from django.contrib.auth import get_user_model
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +26,16 @@ DEBUG = os.environ.get('DEBUG','False').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
+
+User = get_user_model()
+
+def create_superuser():
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'password')  # Change as needed
+
+if os.environ.get('RUN_MAIN') == 'true':  # Only run in development mode
+    create_superuser()
+  
 
 
 
